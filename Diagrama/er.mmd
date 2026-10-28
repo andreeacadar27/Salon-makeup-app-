@@ -1,0 +1,59 @@
+erDiagram
+    CLIENTI ||--o{ PROGRAMARI : "efectueaza (1:N)"
+    MAKEUP_ARTISTI ||--o{ PROGRAMARI : "realizeaza (1:N)"
+    TIPURI_MACHIAJ ||--o{ PROGRAMARI : "include (1:N)"
+    TEHNICI_MAKEUP ||--o{ PROGRAMARI : "utilizeaza (1:N)"
+    PROGRAMARI ||--|| INCASARI : "genereaza (1:1)"
+
+    CLIENTI {
+        int id_client PK
+        string nume
+        string prenume
+        string telefon
+        string email
+        string tip_ten_frecvent
+    }
+
+    MAKEUP_ARTISTI {
+        int id_artist PK
+        string nume
+        string prenume
+        string telefon
+        string email
+        string program_lucru
+    }
+
+    TIPURI_MACHIAJ {
+        int id_tip_machiaj PK
+        string denumire
+        decimal pret_baza
+        int durata_baza_minute
+    }
+
+    TEHNICI_MAKEUP {
+        int id_tehnica PK
+        string denumire_tehnica
+        decimal cost_extra
+        int durata_extra_minute
+    }
+
+    PROGRAMARI {
+        int id_programare PK
+        int id_client FK
+        int id_artist FK
+        int id_tip_machiaj FK
+        int id_tehnica FK
+        string tip_gene
+        string observatii_ten
+        datetime data_ora_start
+        datetime data_ora_final
+        string status
+    }
+
+    INCASARI {
+        int id_incasare PK
+        int id_programare FK
+        decimal suma_totala
+        string modalitate_plata
+        datetime data_incasare
+    }
