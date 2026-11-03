@@ -1,59 +1,45 @@
-erDiagram
-    CLIENTI ||--o{ PROGRAMARI : "efectueaza (1:N)"
-    MAKEUP_ARTISTI ||--o{ PROGRAMARI : "realizeaza (1:N)"
-    TIPURI_MACHIAJ ||--o{ PROGRAMARI : "include (1:N)"
-    TEHNICI_MAKEUP ||--o{ PROGRAMARI : "utilizeaza (1:N)"
-    PROGRAMARI ||--|| INCASARI : "genereaza (1:1)"
+flowchart TD
+    %% Entități (dreptunghiuri)
+    CLIENTI[CLIENTI]
+    MAKEUP_ARTISTI[MAKEUP_ARTISTI]
+    PROGRAMARI[PROGRAMARI]
+    TIPURI_MACHIAJ[TIPURI_MACHIAJ]
+    TEHNICI_MAKEUP[TEHNICI_MAKEUP]
+    INCASARI[INCASARI]
 
-    CLIENTI {
-        int id_client PK
-        string nume
-        string prenume
-        string telefon
-        string email
-        string tip_ten_frecvent
-    }
+    %% Relații (romburi)
+    r_efectueaza{Efectueaza}
+    r_realizeaza{Realizeaza}
+    r_include{Include}
+    r_utilizeaza{Utilizeaza}
+    r_genereaza{Genereaza}
 
-    MAKEUP_ARTISTI {
-        int id_artist PK
-        string nume
-        string prenume
-        string telefon
-        string email
-        string program_lucru
-    }
+    %% Conexiuni cu Cardinalități
+    CLIENTI ---|1| r_efectueaza
+    r_efectueaza ---|N| PROGRAMARI
 
-    TIPURI_MACHIAJ {
-        int id_tip_machiaj PK
-        string denumire
-        decimal pret_baza
-        int durata_baza_minute
-    }
+    MAKEUP_ARTISTI ---|1| r_realizeaza
+    r_realizeaza ---|N| PROGRAMARI
 
-    TEHNICI_MAKEUP {
-        int id_tehnica PK
-        string denumire_tehnica
-        decimal cost_extra
-        int durata_extra_minute
-    }
+    TIPURI_MACHIAJ ---|1| r_include
+    r_include ---|N| PROGRAMARI
 
-    PROGRAMARI {
-        int id_programare PK
-        int id_client FK
-        int id_artist FK
-        int id_tip_machiaj FK
-        int id_tehnica FK
-        string tip_gene
-        string observatii_ten
-        datetime data_ora_start
-        datetime data_ora_final
-        string status
-    }
+    TEHNICI_MAKEUP ---|1| r_utilizeaza
+    r_utilizeaza ---|N| PROGRAMARI
 
-    INCASARI {
-        int id_incasare PK
-        int id_programare FK
-        decimal suma_totala
-        string modalitate_plata
-        datetime data_incasare
-    }
+    PROGRAMARI ---|1| r_genereaza
+    r_genereaza ---|1| INCASARI
+
+    %% Stiluri pentru vizualizare frumoasă
+    style CLIENTI fill:#FCE4EC,stroke:#A52A64,stroke-width:2px,color:#000
+    style MAKEUP_ARTISTI fill:#FCE4EC,stroke:#A52A64,stroke-width:2px,color:#000
+    style PROGRAMARI fill:#FCE4EC,stroke:#A52A64,stroke-width:3px,color:#000
+    style TIPURI_MACHIAJ fill:#FCE4EC,stroke:#A52A64,stroke-width:2px,color:#000
+    style TEHNICI_MAKEUP fill:#FCE4EC,stroke:#A52A64,stroke-width:2px,color:#000
+    style INCASARI fill:#FCE4EC,stroke:#A52A64,stroke-width:2px,color:#000
+
+    style r_efectueaza fill:#E8EAF6,stroke:#3F51B5,stroke-width:2px,color:#000
+    style r_realizeaza fill:#E8EAF6,stroke:#3F51B5,stroke-width:2px,color:#000
+    style r_include fill:#E8EAF6,stroke:#3F51B5,stroke-width:2px,color:#000
+    style r_utilizeaza fill:#E8EAF6,stroke:#3F51B5,stroke-width:2px,color:#000
+    style r_genereaza fill:#E8EAF6,stroke:#3F51B5,stroke-width:2px,color:#000
